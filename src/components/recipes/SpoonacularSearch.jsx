@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { RecipeContext } from "../../context/RecipeContext";
+import { useNavigate } from "react-router-dom";
 
 export const SpoonacularSearch = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -7,6 +8,7 @@ export const SpoonacularSearch = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
   const { searchSpoonacular, saveSpoonacularRecipe } =
     useContext(RecipeContext);
 
@@ -28,6 +30,7 @@ export const SpoonacularSearch = () => {
     try {
       const savedRecipe = await saveSpoonacularRecipe(spoonacularId);
       console.log("Saved recipe", savedRecipe);
+      navigate(`/recipes/${savedRecipe.id}`);
     } catch (err) {
       console.error("Failed to save recipe", err);
     }

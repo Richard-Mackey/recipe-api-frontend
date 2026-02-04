@@ -28,9 +28,6 @@ export const RecipeProvider = ({ children }) => {
       }
       const data = await response.json();
 
-      console.log("Fetched data:", data); // 👈 Add this
-      console.log("Recipes array:", data.content); // 👈 And this
-
       setRecipes(data.content);
     } catch (err) {
       setError(err.message);
@@ -156,8 +153,6 @@ export const RecipeProvider = ({ children }) => {
         );
       }
       const data = await response.json();
-
-      console.log("Fetched data:", data);
 
       return data;
     } catch (err) {

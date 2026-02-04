@@ -7,6 +7,7 @@ import { RecipeList } from "./components/recipes/RecipeList";
 import { CreateRecipePage } from "./pages/CreateRecipePage";
 import { EditRecipePage } from "./pages/EditRecipePage";
 import { SpoonacularSearch } from "./components/recipes/SpoonacularSearch";
+import { RecipeDetailPage } from "./pages/RecipeDetailPage";
 
 // Inside App.jsx, BEFORE the App component:
 
@@ -45,6 +46,7 @@ const AppContent = () => {
         />
         <Route path="/recipes/create" element={<CreateRecipePage />} />
         <Route path="/recipes/edit/:id" element={<EditRecipePage />} />
+        <Route path="/recipes/:id" element={<RecipeDetailPage />} />
       </Routes>
     </div>
   );
