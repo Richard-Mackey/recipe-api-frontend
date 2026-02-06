@@ -1,16 +1,73 @@
-# React + Vite
+# Recipe Manager - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React frontend for the Recipe API, featuring user authentication, recipe management, and Spoonacular integration.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **User Authentication**: Registration with validation (email regex, password confirmation) and JWT-based login
+- **Recipe Management**: Create, edit, delete, and view personal recipes
+- **Spoonacular Search**: Search external recipes via navbar and save to collection
+- **Smart Filtering**: Filter by source (My Recipes/Spoonacular) and category (Breakfast/Lunch/Dinner/Dessert)
+- **Pagination**: Navigate through recipe collections
+- **Dynamic Categorization**: Auto-displays category images based on recipe type
+- **Responsive Design**: Bootstrap styling with mobile-friendly navigation
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 18
+- React Router v6
+- Bootstrap 5
+- Context API (state management)
+- Vite (build tool)
 
-## Expanding the ESLint configuration
+## Key Implementation Details
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Context API**: `AuthContext` manages authentication state, `RecipeContext` handles recipe CRUD and Spoonacular integration
+- **URL-based Search**: Search queries use URL parameters for shareable/bookmarkable results
+- **Protected Routes**: Route guards redirect unauthenticated users to login
+- **Event Handling**: Proper event bubbling control (`stopPropagation`) for nested clickable elements
+- **Flexbox Layouts**: Equal-height recipe cards with fixed button positioning
+- **Controlled Components**: All forms use controlled inputs with validation
+
+## Running the Application
+
+### Prerequisites
+
+- Node.js 18+
+- Backend API running on `http://localhost:8082`
+
+### Setup
+
+```bash
+git clone https://github.com/Richard-Mackey/recipe-frontend.git
+cd recipe-frontend
+npm install
+npm run dev
+```
+
+Application runs on: `http://localhost:5173`
+
+## Backend Repository
+
+Spring Boot API: [Recipe API Backend](https://github.com/Richard-Mackey/recipe-api)
+
+## Routes
+
+| Route               | Component            | Description                              |
+| ------------------- | -------------------- | ---------------------------------------- |
+| `/`                 | LoginForm / HomePage | Login page or welcome (if authenticated) |
+| `/register`         | RegisterForm         | User registration                        |
+| `/recipes`          | RecipesPage          | Recipe list with filters and search      |
+| `/recipes/create`   | CreateRecipePage     | Create new recipe form                   |
+| `/recipes/edit/:id` | EditRecipePage       | Edit existing recipe                     |
+| `/recipes/:id`      | RecipeDetailPage     | View recipe details                      |
+| `/search`           | SpoonacularSearch    | Spoonacular search results               |
+
+## Future Enhancements
+
+- Recipe ratings and reviews
+- Image upload for user recipes
+- Meal planning calendar
+- Recipe sharing between users
+- Advanced search with multiple filters
+- Offline support with service workers
