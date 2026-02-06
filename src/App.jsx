@@ -1,56 +1,38 @@
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import { RecipeProvider } from "./context/RecipeContext";
-import { LoginForm } from "./components/auth/LoginForm";
-import { RecipeList } from "./components/recipes/RecipeList";
+import { Navigation } from "./components/Navigation";
+import { HomePage } from "./pages/HomePage";
+import { RecipesPage } from "./pages/RecipesPage";
 import { CreateRecipePage } from "./pages/CreateRecipePage";
 import { EditRecipePage } from "./pages/EditRecipePage";
-import { SpoonacularSearch } from "./components/recipes/SpoonacularSearch";
 import { RecipeDetailPage } from "./pages/RecipeDetailPage";
+import { LoginForm } from "./components/auth/LoginForm";
+import { SpoonacularSearch } from "./components/recipes/SpoonacularSearch";
+import { RegisterForm } from "./components/auth/RegisterForm";
 
-// Inside App.jsx, BEFORE the App component:
-
-const AppContent = () => {
-  const { user, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+function AppContent() {
+  const { user } = useContext(AuthContext);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Recipe App</h1>
-
-      {user && (
-        <div style={{ marginBottom: "20px" }}>
-          <span>Welcome, {user.username}! </span>
-          <button onClick={logout}>Logout</button>
-        </div>
-      )}
-
+    <div>
+      {user && <Navigation />} {/* Show nav only when logged in */}
       <Routes>
+        <Route path="/" element={!user ? <LoginForm /> : <HomePage />} />
         <Route
-          path="/"
-          element={
-            !user ? (
-              <LoginForm />
-            ) : (
-              <>
-                <button onClick={() => navigate("/recipes/create")}>
-                  Create Recipe
-                </button>
-                <h1>My Recipes</h1>
-                <SpoonacularSearch />
-                <RecipeList />
-              </>
-            )
-          }
+          path="/register"
+          element={!user ? <RegisterForm /> : <HomePage />}
         />
+        <Route path="/recipes" element={<RecipesPage />} />
         <Route path="/recipes/create" element={<CreateRecipePage />} />
         <Route path="/recipes/edit/:id" element={<EditRecipePage />} />
         <Route path="/recipes/:id" element={<RecipeDetailPage />} />
+        <Route path="/search" element={<SpoonacularSearch />} />
       </Routes>
     </div>
   );
-};
+}
 
 function App() {
   return (

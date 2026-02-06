@@ -69,14 +69,19 @@ export const EditRecipePage = () => {
   }
 
   return (
-    <div>
+    <div className="m-5">
+      <h2 className="text-center">Edit recipe</h2>
       {error && <div style={{ color: "red" }}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4" id="recipe-name">
+            Name
+          </span>
           <input
+            className="form-control"
             type="text"
+            aria-label="recipe name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={loading}
@@ -84,9 +89,11 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Description:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4">Description</span>
           <textarea
+            className="form-control"
+            aria-label="recipe description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             disabled={loading}
@@ -94,9 +101,11 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Ingredients:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4">Ingredients</span>
           <textarea
+            className="form-control"
+            aria-label="recipe ingredients"
             value={ingredientsText}
             onChange={(e) => setIngredientsText(e.target.value)}
             disabled={loading}
@@ -104,9 +113,11 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Instructions:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4">Instructions</span>
           <textarea
+            className="form-control"
+            aria-label="recipe instruction"
             value={instructions}
             onChange={(e) => setInstructions(e.target.value)}
             disabled={loading}
@@ -114,10 +125,14 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Preparation time (minutes):</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4" id="recipe-preparation-time">
+            Preparation time (minutes):
+          </span>
           <input
+            className="form-control"
             type="number"
+            aria-label="recipe preparation time"
             value={prepTimeMinutes}
             onChange={(e) => setPrepTimeMinutes(e.target.value)}
             disabled={loading}
@@ -125,9 +140,13 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Servings:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4" id="servings">
+            Servings
+          </span>
           <input
+            className="form-control"
+            aria-label="servings"
             type="number"
             value={servings}
             onChange={(e) => setServings(e.target.value)}
@@ -138,9 +157,10 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Category:</label>
+        <div className="input-group m-3">
           <select
+            className="form-select "
+            aria-label="Select category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             disabled={loading}
@@ -153,10 +173,15 @@ export const EditRecipePage = () => {
           </select>
         </div>
 
-        <button type="submit" disabled={loading}>
+        <button className="btn btn-light m-3" type="submit" disabled={loading}>
           {loading ? "Saving recipe..." : "Save recipe"}
         </button>
-        <button type="button" onClick={() => navigate("/")}>
+
+        <button
+          className="btn btn-light m-3"
+          type="button"
+          onClick={() => navigate("/")}
+        >
           Cancel
         </button>
       </form>

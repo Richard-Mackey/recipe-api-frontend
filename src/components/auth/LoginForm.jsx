@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import background from "../../assets/Background.jpg";
 
 export const LoginForm = () => {
   const [usernameInput, setUsernameInput] = useState("");
@@ -32,16 +34,26 @@ export const LoginForm = () => {
   }
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div
+      className="m-5 login-page"
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <h2 className="text-center">Login</h2>
 
       {error && <div style={{ color: "red" }}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
+        <div className="input-group mb-5">
+          <span className="input-group-text col-2" id="username">
+            Username
+          </span>
           <input
             type="text"
+            className="form-control"
             value={usernameInput}
             onChange={(e) => setUsernameInput(e.target.value)}
             disabled={loading}
@@ -49,10 +61,13 @@ export const LoginForm = () => {
           />
         </div>
 
-        <div>
-          <label>Password:</label>
+        <div className="input-group mb-5">
+          <span className="input-group-text col-2" id="username">
+            Password
+          </span>
           <input
             type="password"
+            className="form-control"
             value={passwordInput}
             onChange={(e) => setPasswordInput(e.target.value)}
             disabled={loading}
@@ -60,10 +75,16 @@ export const LoginForm = () => {
           />
         </div>
 
-        <button type="submit" disabled={loading}>
+        <button className="btn btn-light mb-5" type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>
+      <p>
+        Don't have an account?{" "}
+        <Link to="/register" className="text-light">
+          Register here
+        </Link>
+      </p>
     </div>
   );
 };

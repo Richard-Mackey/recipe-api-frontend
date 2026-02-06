@@ -1,12 +1,14 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 
 export const RecipeContext = createContext();
 
 export const RecipeProvider = ({ children }) => {
-  const [recipes, setRecipes] = useState(null);
+  const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false); // doesn't immeditaly start fetch
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
 
   // retrieve token from AuthContext
   const { token } = useContext(AuthContext);
@@ -16,7 +18,7 @@ export const RecipeProvider = ({ children }) => {
     setError(null);
     try {
       const response = await fetch(
-        "http://localhost:8082/recipes?page=0&size=20",
+        `http://localhost:8082/recipes?page=${currentPage}&size=20&sort=id,desc`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -29,12 +31,19 @@ export const RecipeProvider = ({ children }) => {
       const data = await response.json();
 
       setRecipes(data.content);
+      setTotalPages(data.totalPages);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      fetchRecipes();
+    }
+  }, [currentPage, token]);
 
   const createRecipe = async (recipeData) => {
     setLoading(true);
@@ -190,6 +199,18 @@ export const RecipeProvider = ({ children }) => {
     }
   };
 
+  const nextPage = () => {
+    setCurrentPage((prev) => prev + 1);
+  };
+
+  const previousPage = () => {
+    setCurrentPage((prev) => prev - 1);
+  };
+
+  const goToPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   const value = {
     recipes,
     loading,
@@ -201,6 +222,11 @@ export const RecipeProvider = ({ children }) => {
     updateRecipe,
     searchSpoonacular,
     saveSpoonacularRecipe,
+    currentPage,
+    totalPages,
+    nextPage,
+    previousPage,
+    goToPage,
   };
 
   return (

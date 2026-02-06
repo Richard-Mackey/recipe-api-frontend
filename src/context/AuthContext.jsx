@@ -39,6 +39,26 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(userObject));
   };
 
+  const register = async (username, email, password) => {
+    const response = await fetch("http://localhost:8082/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+    if (!response.ok) {
+      throw new Error(`Invalid credentials: ${response.status}`);
+    }
+    const data = await response.json();
+    const userObject = { username: data.username };
+
+    setToken(data.token);
+    setUser(userObject);
+    localStorage.setItem("Jwt", data.token);
+    localStorage.setItem("user", JSON.stringify(userObject));
+  };
+
   const logout = () => {
     setToken(null);
     setUser(null);
@@ -51,6 +71,7 @@ export const AuthProvider = ({ children }) => {
     user,
     loading,
     login,
+    register,
     logout,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -60,14 +60,20 @@ export const CreateRecipePage = () => {
   }
 
   return (
-    <div>
+    <div className="m-5">
+      <h2 className="text-center">Create a recipe</h2>
       {error && <div style={{ color: "red" }}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4" id="recipe-name">
+            Name
+          </span>
+
           <input
             type="text"
+            className="form-control"
+            aria-label="recipe name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             disabled={loading}
@@ -75,9 +81,11 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Description:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4">Description</span>
           <textarea
+            className="form-control"
+            aria-label="recipe description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             disabled={loading}
@@ -85,9 +93,11 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Ingredients:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4">Ingredients</span>
           <textarea
+            className="form-control"
+            aria-label="recipe ingredients"
             value={ingredientsText}
             onChange={(e) => setIngredientsText(e.target.value)}
             disabled={loading}
@@ -95,20 +105,25 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Instructions:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4">Instructions</span>
           <textarea
+            className="form-control"
+            aria-label="recipe instruction"
             value={instructions}
             onChange={(e) => setInstructions(e.target.value)}
             disabled={loading}
             required
           />
         </div>
-
-        <div>
-          <label>Preparation time (minutes):</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4" id="recipe-preparation-time">
+            Preparation time (minutes):
+          </span>
           <input
             type="number"
+            className="form-control"
+            aria-label="recipe preparation time"
             value={prepTimeMinutes}
             onChange={(e) => setPrepTimeMinutes(e.target.value)}
             disabled={loading}
@@ -116,10 +131,14 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Servings:</label>
+        <div className="input-group m-3">
+          <span className="input-group-text col-4" id="servings">
+            Servings
+          </span>
           <input
             type="number"
+            className="form-control"
+            aria-label="servings"
             value={servings}
             onChange={(e) => setServings(e.target.value)}
             disabled={loading}
@@ -129,14 +148,16 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div>
-          <label>Category:</label>
+        <div className="input-group m-3">
           <select
+            className="form-select "
+            aria-label="Select category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             disabled={loading}
             required
           >
+            <option selected>Category</option>
             <option value="BREAKFAST">Breakfast</option>
             <option value="LUNCH">Lunch</option>
             <option value="DINNER">Dinner</option>
@@ -144,14 +165,15 @@ export const CreateRecipePage = () => {
           </select>
         </div>
 
-        <button type="submit" disabled={loading}>
+        <button className="btn btn-light m-3" type="submit" disabled={loading}>
           {loading ? "Saving recipe..." : "Save recipe"}
         </button>
-        <button type="button" onClick={() => navigate("/")}>
+        <button
+          type="button"
+          className="btn btn-light m-3"
+          onClick={() => navigate("/")}
+        >
           Cancel
-        </button>
-        <button type="submit" disabled={loading}>
-          {loading ? "Saving recipe..." : "Save recipe"}
         </button>
       </form>
     </div>
