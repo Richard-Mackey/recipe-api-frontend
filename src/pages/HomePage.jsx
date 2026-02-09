@@ -7,7 +7,7 @@ export const HomePage = () => {
   return (
     <div className="m-5">
       <h1>Welcome back, {user?.username}!</h1>
-      <p>Click on my recipes, to view your saved recipes.</p>
+      <p>Click on My Recipes, to view your saved recipes.</p>
       <p>
         View recipes that other users have created. Don't like them? Delete
         them! They will only disappear from your own saved recipes.

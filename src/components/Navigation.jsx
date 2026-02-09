@@ -26,20 +26,12 @@ export const Navigation = () => {
   if (!user) return null;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-md navbar-light bg-light">
       <div className="container">
         <NavLink to="/" className="navbar-brand">
           Recipe Manager
         </NavLink>
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
         <form onSubmit={handleSubmit} className="d-flex" role="search">
           <input
             className="form-control me-2 col-3"
@@ -51,8 +43,18 @@ export const Navigation = () => {
             disabled={loading}
             required
           />
+
           <button
-            className="btn btn-outline-success"
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span className="navbar-toggler-icon "></span>
+          </button>
+
+          <button
+            className="btn btn-outline-success d-none d-lg-inline-block"
             type="submit"
             disabled={loading}
           >

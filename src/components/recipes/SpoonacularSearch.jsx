@@ -56,7 +56,11 @@ export const SpoonacularSearch = () => {
             >
               <div className="card p-4 rounded shadow d-flex h-100">
                 <div className="flex-grow-1 text-center">
-                  <img src={recipe.image} alt={recipe.title} />
+                  <img
+                    src={recipe.image}
+                    alt={recipe.title}
+                    className="mt-4 img-fluid mb-3"
+                  />
                   <h3>{recipe.title}</h3>
                 </div>
                 <button

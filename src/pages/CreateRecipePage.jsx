@@ -52,20 +52,22 @@ export const CreateRecipePage = () => {
   if (success) {
     return (
       <div>
-        <h2>Recipe created</h2>
+        <h2 className="m-3">Recipe created</h2>
 
-        <button onClick={() => navigate("/")}>Back to recipe list</button>
+        <button className="btn btn-light m-3" onClick={() => navigate("/")}>
+          Back to recipe list
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="m-5">
+    <div className="m-3 m-md-5 ">
       <h2 className="text-center">Create a recipe</h2>
       {error && <div style={{ color: "red" }}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4" id="recipe-name">
             Name
           </span>
@@ -81,7 +83,7 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4">Description</span>
           <textarea
             className="form-control"
@@ -93,7 +95,7 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4">Ingredients</span>
           <textarea
             className="form-control"
@@ -105,7 +107,7 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4">Instructions</span>
           <textarea
             className="form-control"
@@ -116,8 +118,12 @@ export const CreateRecipePage = () => {
             required
           />
         </div>
-        <div className="input-group m-3">
-          <span className="input-group-text col-4" id="recipe-preparation-time">
+        <div className="input-group mb-3 m-md-3">
+          <span
+            className="input-group-text col-md-4"
+            id="recipe-preparation-time"
+          >
+            {" "}
             Preparation time (minutes):
           </span>
           <input
@@ -131,7 +137,7 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4" id="servings">
             Servings
           </span>
@@ -148,7 +154,7 @@ export const CreateRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <select
             className="form-select "
             aria-label="Select category"
@@ -165,13 +171,17 @@ export const CreateRecipePage = () => {
           </select>
         </div>
 
-        <button className="btn btn-light m-3" type="submit" disabled={loading}>
+        <button
+          className="btn btn-light m-md-3"
+          type="submit"
+          disabled={loading}
+        >
           {loading ? "Saving recipe..." : "Save recipe"}
         </button>
         <button
           type="button"
           className="btn btn-light m-3"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/recipes")}
         >
           Cancel
         </button>

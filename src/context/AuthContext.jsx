@@ -2,6 +2,15 @@ import { createContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
 
+const isTokenExpired = (token) => {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.exp * 1000 < Date.now();
+  } catch {
+    return true;
+  }
+};
+
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
@@ -12,8 +21,13 @@ export const AuthProvider = ({ children }) => {
     const savedUser = localStorage.getItem("user");
 
     if (savedUser && savedJwt) {
-      setToken(savedJwt);
-      setUser(JSON.parse(savedUser));
+      if (isTokenExpired(savedJwt)) {
+        localStorage.removeItem("Jwt");
+        localStorage.removeItem("user");
+      } else {
+        setToken(savedJwt);
+        setUser(JSON.parse(savedUser));
+      }
     }
     setLoading(false);
   }, []);
@@ -27,7 +41,27 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({ username, password }),
     });
     if (!response.ok) {
-      throw new Error(`Invalid credentials: ${response.status}`);
+      const contentType = response.headers.get("content-type");
+      let errorMessage = `Login failed: ${response.status}`;
+
+      if (contentType && contentType.includes("application/json")) {
+        // Response is JSON
+        const errorData = await response.json();
+
+        if (errorData.fieldErrors) {
+          const errors = Object.values(errorData.fieldErrors);
+          errorMessage = errors.join(". ");
+        } else if (errorData.message) {
+          errorMessage = errorData.message;
+        } else if (errorData.error) {
+          errorMessage = errorData.error;
+        }
+      } else {
+        const text = await response.text();
+        errorMessage = text || errorMessage;
+      }
+
+      throw new Error(errorMessage);
     }
     const data = await response.json();
 
@@ -48,7 +82,10 @@ export const AuthProvider = ({ children }) => {
       body: JSON.stringify({ username, email, password }),
     });
     if (!response.ok) {
-      throw new Error(`Invalid credentials: ${response.status}`);
+      const errorMessage = await response.text();
+      throw new Error(
+        errorMessage || `Registration failed: ${response.status}`
+      );
     }
     const data = await response.json();
     const userObject = { username: data.username };

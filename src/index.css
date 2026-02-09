@@ -61,3 +61,11 @@ p {
   position: relative;
   z-index: 2;
 }
+
+.auth-form .form-label {
+  color: #ece0d1 !important;
+}
+
+.reg-form .form-label {
+  color: #ece0d1 !important;
+}

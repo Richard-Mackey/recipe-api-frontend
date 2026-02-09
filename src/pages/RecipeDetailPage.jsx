@@ -46,7 +46,7 @@ export const RecipeDetailPage = () => {
   const sourceCaseFixed = sourceFirstLetter + sourceRestOfWord;
 
   return (
-    <div className="m-5">
+    <div className="m-3 m-md-5">
       <button
         type="button"
         className="btn btn-light"
@@ -55,10 +55,10 @@ export const RecipeDetailPage = () => {
         Back to Recipes
       </button>
 
-      <h1 className="text-center mb-5">{recipe.name}</h1>
+      <h1 className="text-center mb-5 mt-3">{recipe.name}</h1>
       <div className="row align-items-stretch mb-3">
         <div className="col-md-4 d-flex">
-          <ul className="list-group ms-2 flex-grow-1">
+          <ul className="list-group ms-md-2 flex-grow-1 mb-3">
             {recipe.description && (
               <li className="list-group-item">
                 Description: {recipe.description}

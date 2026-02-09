@@ -11,7 +11,7 @@ export const RecipeProvider = ({ children }) => {
   const [totalPages, setTotalPages] = useState(1);
 
   // retrieve token from AuthContext
-  const { token } = useContext(AuthContext);
+  const { token, logout } = useContext(AuthContext);
 
   const fetchRecipes = async () => {
     setLoading(true);
@@ -26,7 +26,13 @@ export const RecipeProvider = ({ children }) => {
         }
       );
       if (!response.ok) {
-        throw new Error(`Failed to fetch recipes: ${response.status}`);
+        const errorMessage = await response.text();
+        if (response.status === 401 || response.status === 403) {
+          logout();
+        }
+        throw new Error(
+          errorMessage || `Failed to fetch recipes: ${response.status}`
+        );
       }
       const data = await response.json();
 
@@ -58,7 +64,13 @@ export const RecipeProvider = ({ children }) => {
         body: JSON.stringify(recipeData),
       });
       if (!response.ok) {
-        throw new Error(`Failed to create recipe: ${response.status}`);
+        const errorMessage = await response.text();
+        if (response.status === 401 || response.status === 403) {
+          logout();
+        }
+        throw new Error(
+          errorMessage || `Failed to create recipe: ${response.status}`
+        );
       }
       const data = await response.json();
       await fetchRecipes();
@@ -85,7 +97,13 @@ export const RecipeProvider = ({ children }) => {
         }
       );
       if (!response.ok) {
-        throw new Error(`Failed to delete recipe: ${response.status}`);
+        const errorMessage = await response.text();
+        if (response.status === 401 || response.status === 403) {
+          logout();
+        }
+        throw new Error(
+          errorMessage || `Failed to delete recipe: ${response.status}`
+        );
       }
       await fetchRecipes();
     } catch (err) {
@@ -106,7 +124,13 @@ export const RecipeProvider = ({ children }) => {
         },
       });
       if (!response.ok) {
-        throw new Error(`Failed to fetch recipe: ${response.status}`);
+        const errorMessage = await response.text();
+        if (response.status === 401 || response.status === 403) {
+          logout();
+        }
+        throw new Error(
+          errorMessage || `Failed to fetch recipe: ${response.status}`
+        );
       }
       const data = await response.json();
       return data;
@@ -131,7 +155,13 @@ export const RecipeProvider = ({ children }) => {
         body: JSON.stringify(recipeData),
       });
       if (!response.ok) {
-        throw new Error(`Failed to update recipe: ${response.status}`);
+        const errorMessage = await response.text();
+        if (response.status === 401 || response.status === 403) {
+          logout();
+        }
+        throw new Error(
+          errorMessage || `Failed to update recipe: ${response.status}`
+        );
       }
       const data = await response.json();
       await fetchRecipes();
@@ -157,8 +187,13 @@ export const RecipeProvider = ({ children }) => {
         }
       );
       if (!response.ok) {
+        const errorMessage = await response.text();
+        if (response.status === 401 || response.status === 403) {
+          logout();
+        }
         throw new Error(
-          `Failed to fetch recipes from Spoonacular: ${response.status}`
+          errorMessage ||
+            `Failed to fetch recipes from Spoonacular: ${response.status}`
         );
       }
       const data = await response.json();
@@ -186,7 +221,13 @@ export const RecipeProvider = ({ children }) => {
         }
       );
       if (!response.ok) {
-        throw new Error(`Failed to save recipe: ${response.status}`);
+        const errorMessage = await response.text();
+        if (response.status === 401 || response.status === 403) {
+          logout();
+        }
+        throw new Error(
+          errorMessage || `Failed to save recipe: ${response.status}`
+        );
       }
       const data = await response.json();
       await fetchRecipes();

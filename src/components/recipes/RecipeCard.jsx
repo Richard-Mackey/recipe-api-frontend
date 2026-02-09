@@ -15,10 +15,16 @@ const categoryImages = {
   Generic: generic,
 };
 
+const categoryDescription = {
+  SPOONACULAR: "Spoonacular",
+  USER_CREATED: "User created",
+};
+
 export const RecipeCard = ({ recipe }) => {
   const { deleteRecipe } = useContext(RecipeContext);
   const navigate = useNavigate();
   const imagePath = recipe.category ? categoryImages[recipe.category] : generic;
+  const sourcePath = categoryDescription[recipe.source] || "Unknown";
 
   return (
     <div
@@ -27,7 +33,6 @@ export const RecipeCard = ({ recipe }) => {
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        border: "2px solid #ccc",
         padding: "10px",
         margin: "10px",
         borderRadius: "5px",
@@ -40,19 +45,19 @@ export const RecipeCard = ({ recipe }) => {
           <img
             src={imagePath}
             alt="Category image"
-            className="category-image"
+            className="category-image mt-4 mb-3"
           />
         </div>
         <h2>{recipe.name}</h2>
 
         <p>{recipe.description}</p>
 
-        <p>Source: {recipe.source}</p>
+        <p>Source: {sourcePath}</p>
       </div>
 
       <button
         type="button"
-        className="btn btn-light m-3"
+        className="btn btn-light ms-3 me-3"
         onClick={(e) => {
           e.stopPropagation();
           navigate(`/recipes/edit/${recipe.id}`);

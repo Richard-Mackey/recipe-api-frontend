@@ -35,7 +35,7 @@ export const LoginForm = () => {
 
   return (
     <div
-      className="m-5 login-page"
+      className="m-5 p-4 login-page"
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
@@ -46,11 +46,24 @@ export const LoginForm = () => {
 
       {error && <div style={{ color: "red" }}>{error}</div>}
 
-      <form onSubmit={handleSubmit}>
-        <div className="input-group mb-5">
-          <span className="input-group-text col-2" id="username">
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <div className="mb-3 d-md-none">
+          <label className="form-label" htmlFor="username">
             Username
-          </span>
+          </label>
+          <input
+            id="username"
+            type="text"
+            className="form-control"
+            value={usernameInput}
+            onChange={(e) => setUsernameInput(e.target.value)}
+            disabled={loading}
+            required
+          />
+        </div>
+
+        <div className="input-group mb-3 d-none d-md-flex">
+          <span className="input-group-text col-md-2">Username</span>
           <input
             type="text"
             className="form-control"
@@ -61,12 +74,25 @@ export const LoginForm = () => {
           />
         </div>
 
-        <div className="input-group mb-5">
-          <span className="input-group-text col-2" id="username">
+        <div className="mb-3 d-md-none">
+          <label className="form-label" htmlFor="password">
             Password
-          </span>
+          </label>
           <input
+            id="password"
             type="password"
+            className="form-control"
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            disabled={loading}
+            required
+          />
+        </div>
+
+        <div className="input-group mb-3 d-none d-md-flex">
+          <span className="input-group-text col-md-2">Password</span>
+          <input
+            type="text"
             className="form-control"
             value={passwordInput}
             onChange={(e) => setPasswordInput(e.target.value)}

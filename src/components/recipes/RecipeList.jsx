@@ -66,8 +66,11 @@ export const RecipeList = () => {
       </div>
       <div className="row ">
         {filteredRecipes.map((recipe) => (
-          <div className="d-flex col-12 col-md-6 col-lg-3 mb-3 mt-5 text-center">
-            <RecipeCard key={recipe.id} recipe={recipe} />
+          <div
+            key={recipe.id}
+            className="col-12 col-md-6 col-lg-3 mb-3 mt-5 text-center"
+          >
+            <RecipeCard recipe={recipe} />
           </div>
         ))}
       </div>

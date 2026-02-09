@@ -58,7 +58,7 @@ export const RegisterForm = () => {
 
   return (
     <div
-      className="m-5 registration-page"
+      className="m-5 p-4 registration-page"
       style={{
         backgroundImage: `url(${background})`,
         backgroundSize: "cover",
@@ -67,11 +67,24 @@ export const RegisterForm = () => {
     >
       <h2 className="text-center">Registration</h2>
       {error && <div style={{ color: "red" }}>{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="input-group mb-3">
-          <span className="input-group-text col-2" id="username">
+      <form className="reg-form" onSubmit={handleSubmit}>
+        <div className="mb-3 d-md-none">
+          <label className="form-label" htmlFor="username">
             Username
-          </span>
+          </label>
+          <input
+            id="username"
+            type="text"
+            className="form-control"
+            value={usernameInput}
+            onChange={(e) => setUsernameInput(e.target.value)}
+            disabled={loading}
+            required
+          />
+        </div>
+
+        <div className="input-group mb-3 d-none d-md-flex">
+          <span className="input-group-text col-md-2">Username</span>
           <input
             type="text"
             className="form-control"
@@ -82,10 +95,23 @@ export const RegisterForm = () => {
           />
         </div>
 
-        <div className="input-group mb-3">
-          <span className="input-group-text col-2" id="username">
+        <div className="mb-3 d-md-none">
+          <label className="form-label" htmlFor="email">
             Email
-          </span>
+          </label>
+          <input
+            id="email"
+            type="text"
+            className="form-control"
+            value={emailInput}
+            onChange={(e) => setEmailInput(e.target.value)}
+            disabled={loading}
+            required
+          />
+        </div>
+
+        <div className="input-group mb-3 d-none d-md-flex">
+          <span className="input-group-text col-md-2">Email</span>
           <input
             type="text"
             className="form-control"
@@ -96,10 +122,23 @@ export const RegisterForm = () => {
           />
         </div>
 
-        <div className="input-group mb-3">
-          <span className="input-group-text col-2" id="username">
+        <div className="mb-3 d-md-none">
+          <label className="form-label" htmlFor="password">
             Password
-          </span>
+          </label>
+          <input
+            id="password"
+            type="password"
+            className="form-control"
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            disabled={loading}
+            required
+          />
+        </div>
+
+        <div className="input-group mb-3 d-none d-md-flex">
+          <span className="input-group-text col-md-2">Password</span>
           <input
             type="password"
             className="form-control"
@@ -110,10 +149,23 @@ export const RegisterForm = () => {
           />
         </div>
 
-        <div className="input-group mb-3">
-          <span className="input-group-text col-2" id="username">
+        <div className="mb-3 d-md-none">
+          <label className="form-label" htmlFor="confirm-password">
             Confirm Password
-          </span>
+          </label>
+          <input
+            id="confirm-password"
+            type="password"
+            className="form-control"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            disabled={loading}
+            required
+          />
+        </div>
+
+        <div className="input-group mb-3 d-none d-md-flex">
+          <span className="input-group-text col-md-2">Confirm Password</span>
           <input
             type="password"
             className="form-control"

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import { RecipeProvider } from "./context/RecipeContext";
 import { Navigation } from "./components/Navigation";
@@ -24,11 +24,26 @@ function AppContent() {
           path="/register"
           element={!user ? <RegisterForm /> : <HomePage />}
         />
-        <Route path="/recipes" element={<RecipesPage />} />
-        <Route path="/recipes/create" element={<CreateRecipePage />} />
-        <Route path="/recipes/edit/:id" element={<EditRecipePage />} />
-        <Route path="/recipes/:id" element={<RecipeDetailPage />} />
-        <Route path="/search" element={<SpoonacularSearch />} />
+        <Route
+          path="/recipes"
+          element={!user ? <Navigate to="/" /> : <RecipesPage />}
+        />
+        <Route
+          path="/recipes/create"
+          element={!user ? <Navigate to="/" /> : <CreateRecipePage />}
+        />
+        <Route
+          path="/recipes/edit/:id"
+          element={!user ? <Navigate to="/" /> : <EditRecipePage />}
+        />
+        <Route
+          path="/recipes/:id"
+          element={!user ? <Navigate to="/" /> : <RecipeDetailPage />}
+        />
+        <Route
+          path="/search"
+          element={!user ? <Navigate to="/" /> : <SpoonacularSearch />}
+        />
       </Routes>
     </div>
   );

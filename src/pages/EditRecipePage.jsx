@@ -69,12 +69,12 @@ export const EditRecipePage = () => {
   }
 
   return (
-    <div className="m-5">
+    <div className="m-3 m-md-5 ">
       <h2 className="text-center">Edit recipe</h2>
       {error && <div style={{ color: "red" }}>{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4" id="recipe-name">
             Name
           </span>
@@ -89,7 +89,7 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4">Description</span>
           <textarea
             className="form-control"
@@ -101,7 +101,7 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4">Ingredients</span>
           <textarea
             className="form-control"
@@ -113,7 +113,7 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4">Instructions</span>
           <textarea
             className="form-control"
@@ -125,8 +125,11 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
-          <span className="input-group-text col-4" id="recipe-preparation-time">
+        <div className="input-group mb-3 m-md-3">
+          <span
+            className="input-group-text col-md-4"
+            id="recipe-preparation-time"
+          >
             Preparation time (minutes):
           </span>
           <input
@@ -140,7 +143,7 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <span className="input-group-text col-4" id="servings">
             Servings
           </span>
@@ -157,7 +160,7 @@ export const EditRecipePage = () => {
           />
         </div>
 
-        <div className="input-group m-3">
+        <div className="input-group mb-3 m-md-3">
           <select
             className="form-select "
             aria-label="Select category"
@@ -180,7 +183,7 @@ export const EditRecipePage = () => {
         <button
           className="btn btn-light m-3"
           type="button"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/recipes")}
         >
           Cancel
         </button>
