@@ -1,6 +1,9 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8082";
+
 export const RecipeContext = createContext();
 
 export const RecipeProvider = ({ children }) => {
@@ -18,7 +21,7 @@ export const RecipeProvider = ({ children }) => {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:8082/recipes?page=${currentPage}&size=20&sort=id,desc`,
+        `${API_BASE_URL}/recipes?page=${currentPage}&size=20&sort=id,desc`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -55,7 +58,7 @@ export const RecipeProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("http://localhost:8082/recipes", {
+      const response = await fetch(`${API_BASE_URL}/recipes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -87,15 +90,12 @@ export const RecipeProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(
-        `http://localhost:8082/recipes/${recipeId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/recipes/${recipeId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         const errorMessage = await response.text();
         if (response.status === 401 || response.status === 403) {
@@ -118,7 +118,7 @@ export const RecipeProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:8082/recipes/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/recipes/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -146,7 +146,7 @@ export const RecipeProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`http://localhost:8082/recipes/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/recipes/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -179,7 +179,7 @@ export const RecipeProvider = ({ children }) => {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:8082/recipes/search/spoonacular?query=${query}&number=10`,
+        `${API_BASE_URL}/recipes/search/spoonacular?query=${query}&number=10`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -211,7 +211,7 @@ export const RecipeProvider = ({ children }) => {
     setError(null);
     try {
       const response = await fetch(
-        `http://localhost:8082/recipes/spoonacular/${spoonacularId}`,
+        `${API_BASE_URL}/recipes/spoonacular/${spoonacularId}`,
         {
           method: "POST",
           headers: {
